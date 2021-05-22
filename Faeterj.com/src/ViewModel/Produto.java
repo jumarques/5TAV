@@ -1,16 +1,12 @@
-package ViewModel;
-
 public class Produto {
 	private int codprod;
 	private String produto;
-	private String empresa;
-	private float preco;
 	private String tipo;
-	public Produto (int codprod, String produto, String empresa, float preco, String tipo) {
+	private float preco;
+	public Produto (int codprod, String produto, String tipo, double preco) {
         this.codprod=codprod;
         this.produto = produto;
-        this.empresa=empresa;
-        this.preco=preco;
+        this.preco=(float) preco;
         this.tipo=tipo;
     }
 	public Produto() {
@@ -28,12 +24,7 @@ public class Produto {
 	public void setProduto(String produto) {
 		this.produto = produto;
 	}
-	public String getEmpresa() {
-		return empresa;
-	}
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
-	}
+	
 	public float getPreco() {
 		return preco;
 	}
@@ -46,7 +37,7 @@ public class Produto {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public boolean ValidarCod (int codprod)
+	public boolean ValidarCod ()
 	{
 		
 		if (codprod<1000 )
@@ -60,8 +51,8 @@ public class Produto {
 			return Validar;
 		}
 	}
-	boolean ValidarProduto (int cod, String produto)
-	{	boolean VCod = this.ValidarCod(codprod);
+	boolean ValidarProduto ()
+	{	boolean VCod = this.ValidarCod();
 		boolean ValidarP = false;
 		if (VCod==true)
 		{
@@ -81,35 +72,59 @@ public class Produto {
 			return ValidarP;
 		}
 	}
-	public boolean ValidarEmpresaTipo (int codprod, String empresa, String tipo)
+	
+	public boolean ValidarValor()
 	{
-		boolean ValEmpresa;
-		boolean ValProd = this.ValidarProduto(codprod,produto);
-		boolean ValCod = this.ValidarCod(codprod);
-		if (ValProd==true && ValCod==true)
+		boolean ValValor = false;
+		boolean ValEmp = this.ValidarProduto();
+		if (ValEmp==true)
 		{
-			if (empresa!=null)
+			if (tipo.equals("beleza"))
 			{
-				if (tipo!="beleza"||tipo!="comida"||tipo!="utilidades")
+				if (preco>=(5.50) && preco<=(50.00))
 				{
-					ValEmpresa=false;
+					ValValor=true;
+					return ValValor;
 				}
-				ValEmpresa=true;
-
+				else
+				{
+					ValValor=false;
+					return ValValor;
+				}
 			}
 			else
 			{
-				ValEmpresa=false;
-				return ValEmpresa;
-			} 
-		}
-		else
-		{
-			ValEmpresa = false;
-			return ValEmpresa;
-		}
-		return ValEmpresa;
+				if (tipo.equals("comida"))
+				{
+					if (preco>(20.50) && preco<(39.00))
+					{
+						ValValor=true;
+						return ValValor;
+					}
+					else
+					{
+						ValValor=false;
+						return ValValor;
+					}
+				}
+				else
+				{
+					if (preco>=(1.99))
+					{
+						ValValor=true;
+						return ValValor;
+					}
+					else
+					{
+						ValValor=false;
+						return ValValor;
+						
+					}
+				} 
+			}
+
+}
+		return ValValor;
 	}
-	
 	
 }
